@@ -1,4 +1,8 @@
 // An example configuration file.
+
+const timeout = 30000;
+const allTestTimeout = 150000;
+
 exports.config = {
   //directConnect: true,
   seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -17,7 +21,7 @@ exports.config = {
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 6000000000
   },
 
   // Options to be passed to Jasmine-node.
