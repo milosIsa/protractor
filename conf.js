@@ -1,6 +1,6 @@
 // An example configuration file.
 
-const timeout = 30000;
+const timeout = 300000;
 const allTestTimeout = 150000;
 
 exports.config = {
@@ -21,7 +21,7 @@ exports.config = {
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 6000000000
+    defaultTimeoutInterval: 60000000000000
   },
 
   // Options to be passed to Jasmine-node.
