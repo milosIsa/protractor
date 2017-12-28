@@ -21,7 +21,9 @@ exports.config = {
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 60000000000000
+    isVerbose: true,
+    includeStackTrace: false,
+    defaultTimeoutInterval: 600000000000
   },
 
   // Options to be passed to Jasmine-node.
