@@ -1,10 +1,14 @@
+
 var loginFunc = require('./functions');
 
 browser.driver.manage().window().maximize();
 
 describe('Survey creation', function() {
+  beforeEach(function() {
+    browser.ignoreSynchronization = false;
+  });
   it('login GPTW user', function() {
-    browser.ignoreSynchronization = true;
+
     browser.get('https://dev-cmp.greatplacetowork.com');
 
     //var loginBtn = element(by.css('.new-login__login-button'))
@@ -12,67 +16,75 @@ describe('Survey creation', function() {
     //loginFunc.waitELe(loginBtn)
     element(by.css('.new-login__left.flexbox'));
 
-    //loginBtn.click();
-
-    loginFunc.elements.loginButton().click();
-
     //  Now make sure that the new window is popping up and we are navigating   correctly to it
-    var handlePromise = browser.driver.getAllWindowHandles();
-    handlePromise.then(function(handles) {
-      var parentHandle = handles[0];
-      var popUpHandle = handles[1];
 
-      // Change to new handle
-      //browser.driver.switchTo().window(popUpHandle);
-
-      // var popUpHandleFinal = browser.driver.getWindowHandle();
-      // expect(popUpHandleFinal).toEqual(popUpHandle);
-
+    loginFunc.elements.loginButton().click().then(function() {
       browser.getAllWindowHandles().then(function(handles) {
-        browser.switchTo().window(popUpHandle).then(function() {
-          var gptwLogin = element(by.css('.btn-default.ng-binding'));
-          loginFunc.waitELe(gptwLogin);
-          gptwLogin.click();
 
-          var gptwLogin2 = element(by.css('#uxOptOutLink'));
-          loginFunc.waitELe(gptwLogin2);
-          gptwLogin2.click();
+        // var handlePromise = browser.driver.getAllWindowHandles();
+        // handlePromise.then(function(handles) {
+        var parentHandle = handles[0];
+        var popUpHandle = handles[1];
 
-          var emailField = element(by.css('#cred_userid_inputtext'));
-          loginFunc.waitELe(emailField);
-          emailField.sendKeys('charliedev@greatplacetowork.com');
-          element(by.css('#cred_sign_in_button')).click();
+        // Change to new handle
+        //browser.driver.switchTo().window(popUpHandle);
 
-          var passField = element(by.css('#passwordInput'));
-          loginFunc.waitELe(passField);
-          passField.sendKeys('Ravine452!');
-          element(by.css('#submitButton')).click();
+        // var popUpHandleFinal = browser.driver.getWindowHandle();
+        // expect(popUpHandleFinal).toEqual(popUpHandle);
 
-        }).then(function(handles) {
-          browser.switchTo().window(parentHandle).then(function() {
-            browser.ignoreSynchronization = false;
-            var clientList = element(by.css('#clientList'));
+        browser.getAllWindowHandles().then(function(handles) {
+          browser.switchTo().window(popUpHandle).then(function() {
+            browser.ignoreSynchronization = true;
+            var gptwLogin = element(by.css('.btn-default.ng-binding'));
+            loginFunc.waitELe(gptwLogin);
+            gptwLogin.click();
 
-            loginFunc.waitELe(clientList);
-            expect($('.header-heading').isDisplayed()).toBeTruthy();
-            element(by.model('vm.meta.searchText')).sendKeys("Client Moz");
-            var searchClient = element(by.css('.input-square-submit.p0'));
+            var gptwLogin2 = element(by.css('#uxOptOutLink'));
+            loginFunc.waitELe(gptwLogin2);
+            gptwLogin2.click();
 
-            loginFunc.waitELe(searchClient);
-            searchClient.click();
-            element(by.cssContainingText('.cell-content', 'Client Moz')).click();
+            var emailField = element(by.css('#cred_userid_inputtext'));
+            loginFunc.waitELe(emailField);
+            emailField.sendKeys('charliedev@greatplacetowork.com');
+            element(by.css('#cred_sign_in_button')).click();
+
+            var passField = element(by.css('#passwordInput'));
+            loginFunc.waitELe(passField);
+            passField.sendKeys('Ravine452!');
+            element(by.css('#submitButton')).click();
+
+          }).then(function(handles) {
+            browser.switchTo().window(parentHandle).then(function() {
+              browser.ignoreSynchronization = false;
+              var clientList = element(by.css('#clientList'));
+              //
+              loginFunc.waitELe(clientList);
+
+            });
 
           });
 
-        })
+        });
 
       });
-
     });
 
 
   });
-  browser.ignoreSynchronization = false;
+  //browser.ignoreSynchronization = false;
+  it('Choose client', function() {
+    // var clientList = element(by.css('#clientList'));
+    //
+    // loginFunc.waitELe(clientList);
+    expect($('.header-heading').isDisplayed()).toBeTruthy();
+    element(by.model('vm.meta.searchText')).sendKeys("Client Moz");
+    var searchClient = element(by.css('.input-square-submit.p0'));
+
+    loginFunc.waitELe(searchClient);
+    searchClient.click();
+    element(by.cssContainingText('.cell-content', 'Client Moz')).click();
+  })
+
   it('should create survey', function() {
     //browser.ignoreSynchronization = false;
     var projectDropDown = element(by.css('.relative.dropdown-toggle'));
