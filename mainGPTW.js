@@ -1,4 +1,5 @@
 
+var Login = require('./login');
 var loginFunc = require('./functions');
 
 browser.driver.manage().window().maximize();
@@ -80,7 +81,7 @@ describe('Survey creation', function() {
     element(by.model('vm.meta.searchText')).sendKeys("Client Moz");
     var searchClient = element(by.css('.input-square-submit.p0'));
 
-    loginFunc.waitELe(searchClient);
+    //loginFunc.waitELe(searchClient);
     searchClient.click();
     element(by.cssContainingText('.cell-content', 'Client Moz')).click();
   })

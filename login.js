@@ -1,7 +1,7 @@
 
 var loginFunc = require('./functions');
 
-LoginFunc = {
+loginPage = {
   elements: {
     loginButton: function() {
       return element(by.css('.new-login__login-button'));
