@@ -1,5 +1,5 @@
 
-var Login = require('./login');
+var loginPage = require('./login');
 var loginFunc = require('./functions');
 
 browser.driver.manage().window().maximize();
@@ -74,16 +74,19 @@ describe('Survey creation', function() {
   });
   //browser.ignoreSynchronization = false;
   it('Choose client', function() {
-    // var clientList = element(by.css('#clientList'));
-    //
-    // loginFunc.waitELe(clientList);
-    expect($('.header-heading').isDisplayed()).toBeTruthy();
-    element(by.model('vm.meta.searchText')).sendKeys("Client Moz");
-    var searchClient = element(by.css('.input-square-submit.p0'));
+            // var clientList = element(by.css('#clientList'));
+            //
+            // loginFunc.waitELe(clientList);
+     expect($('.header-heading').isDisplayed()).toBeTruthy();
+    // element(by.model('vm.meta.searchText')).sendKeys("Client Moz");
+    //loginPage.elements.searchClient().sendKeys('Client Moz');
 
-    //loginFunc.waitELe(searchClient);
-    searchClient.click();
-    element(by.cssContainingText('.cell-content', 'Client Moz')).click();
+    loginPage.clientListFun('Client Moz');
+    // var searchClient = element(by.css('.input-square-submit.p0'));
+    //loginPage.clientList('Client Moz');
+              //loginFunc.waitELe(searchClient);
+    // searchClient.click();
+    // element(by.cssContainingText('.cell-content', 'Client Moz')).click();
   })
 
   it('should create survey', function() {
