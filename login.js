@@ -18,7 +18,7 @@ LoginPage = {
       return element(by.css('#cred_userid_inputtext'));
     },
     signinGPTWfirst: function() {
-      element(by.css('#cred_sign_in_button'));
+      return element(by.css('#cred_sign_in_button'));
     },
     passGPTW: function() {
       return element(by.css('#passwordInput'));
@@ -42,22 +42,43 @@ LoginPage = {
       return element(by.cssContainingText('.cell-content', name))
     }
   },
+  loginGPTW: function(username, pass) {
 
-  loginGPTW: function() {
+    let that = this;
 
-    elements.loginButton().click().then(function() {
+    this.elements.loginButton().click().then(function() {
       browser.getAllWindowHandles().then(function(handles) {
         var parentHandle = handles[0];
         var popUpHandle = handles[1];
 
-        browser.switchTo().window(popUpHandle).then(function() {})
-      })
+        browser.switchTo().window(popUpHandle).then(function() {
+          browser.ignoreSynchronization = true;
+          loginFunc.waitELe(that.elements.loginGPTWButton());
+          that.elements.loginGPTWButton().click();
+          loginFunc.waitELe(that.elements.loginGPTWold());
+          that.elements.loginGPTWold().click();
+          loginFunc.waitELe(that.elements.emailGPTW());
+          that.elements.emailGPTW().sendKeys(username);
+          that.elements.signinGPTWfirst().click();
+          loginFunc.waitELe(that.elements.passGPTW());
+          that.elements.passGPTW().sendKeys(pass);
+          that.elements.submitLoginGPTW().click();
 
-    })
 
+
+        }).then(function(handles) {
+          browser.switchTo().window(parentHandle).then(function() {
+            browser.ignoreSynchronization = false;
+            loginFunc.waitELe(that.elements.clientList());
+          });
+        });
+
+      });
+
+    });
   },
   searchClient: function(clientName) {
-    elements.searchClient().sendKeys(clientName);
+    this.elements.searchClient().sendKeys(clientName);
   },
   clientListFun: function(clientName) {
     //let that = this;

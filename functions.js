@@ -16,7 +16,7 @@ LoginFunc = {
       return element.all(by.css('.overview-wrap__value.display-table > div > p')).get(0);
     },
      expStatCount: function(text) {
-      expect(statCount().getText()).toEqual(text);
+      expect(this.elements.statCount().getText()).toEqual(text);
      }
   }
 

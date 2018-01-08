@@ -18,60 +18,58 @@ describe('Survey creation', function() {
     element(by.css('.new-login__left.flexbox'));
 
     //  Now make sure that the new window is popping up and we are navigating   correctly to it
-
-    loginFunc.elements.loginButton().click().then(function() {
-      browser.getAllWindowHandles().then(function(handles) {
-
-        // var handlePromise = browser.driver.getAllWindowHandles();
-        // handlePromise.then(function(handles) {
-        var parentHandle = handles[0];
-        var popUpHandle = handles[1];
-
-        // Change to new handle
-        //browser.driver.switchTo().window(popUpHandle);
-
-        // var popUpHandleFinal = browser.driver.getWindowHandle();
-        // expect(popUpHandleFinal).toEqual(popUpHandle);
-
-        browser.getAllWindowHandles().then(function(handles) {
-          browser.switchTo().window(popUpHandle).then(function() {
-            browser.ignoreSynchronization = true;
-            var gptwLogin = element(by.css('.btn-default.ng-binding'));
-            loginFunc.waitELe(gptwLogin);
-            gptwLogin.click();
-
-            var gptwLogin2 = element(by.css('#uxOptOutLink'));
-            loginFunc.waitELe(gptwLogin2);
-            gptwLogin2.click();
-
-            var emailField = element(by.css('#cred_userid_inputtext'));
-            loginFunc.waitELe(emailField);
-            emailField.sendKeys('charliedev@greatplacetowork.com');
-            element(by.css('#cred_sign_in_button')).click();
-
-            var passField = element(by.css('#passwordInput'));
-            loginFunc.waitELe(passField);
-            passField.sendKeys('Ravine452!');
-            element(by.css('#submitButton')).click();
-
-          }).then(function(handles) {
-            browser.switchTo().window(parentHandle).then(function() {
-              browser.ignoreSynchronization = false;
-              var clientList = element(by.css('#clientList'));
-              //
-              loginFunc.waitELe(clientList);
-
-            });
-
-          });
-
-        });
-
-      });
+        loginPage.loginGPTW('charliedev@greatplacetowork.com', 'Ravine452!');
+  //   loginFunc.elements.loginButton().click().then(function() {
+  //     browser.getAllWindowHandles().then(function(handles) {
+  //
+  //       // var handlePromise = browser.driver.getAllWindowHandles();
+  //       // handlePromise.then(function(handles) {
+  //       var parentHandle = handles[0];
+  //       var popUpHandle = handles[1];
+  //
+  //       // Change to new handle
+  //       //browser.driver.switchTo().window(popUpHandle);
+  //
+  //       // var popUpHandleFinal = browser.driver.getWindowHandle();
+  //       // expect(popUpHandleFinal).toEqual(popUpHandle);
+  //
+  //       browser.getAllWindowHandles().then(function(handles) {
+  //         browser.switchTo().window(popUpHandle).then(function() {
+  //           browser.ignoreSynchronization = true;
+  //           var gptwLogin = element(by.css('.btn-default.ng-binding'));
+  //           loginFunc.waitELe(gptwLogin);
+  //           gptwLogin.click();
+  //
+  //           var gptwLogin2 = element(by.css('#uxOptOutLink'));
+  //           loginFunc.waitELe(gptwLogin2);
+  //           gptwLogin2.click();
+  //
+  //           var emailField = element(by.css('#cred_userid_inputtext'));
+  //           loginFunc.waitELe(emailField);
+  //           emailField.sendKeys('charliedev@greatplacetowork.com');
+  //           element(by.css('#cred_sign_in_button')).click();
+  //
+  //           var passField = element(by.css('#passwordInput'));
+  //           loginFunc.waitELe(passField);
+  //           passField.sendKeys('Ravine452!');
+  //           element(by.css('#submitButton')).click();
+  //
+  //         }).then(function(handles) {
+  //           browser.switchTo().window(parentHandle).then(function() {
+  //             browser.ignoreSynchronization = false;
+  //             var clientList = element(by.css('#clientList'));
+  //             //
+  //             loginFunc.waitELe(clientList);
+  //
+  //           });
+  //
+  //         });
+  //
+  //       });
+  //
+  //     });
+  //   });
     });
-
-
-  });
   //browser.ignoreSynchronization = false;
   it('Choose client', function() {
             // var clientList = element(by.css('#clientList'));
