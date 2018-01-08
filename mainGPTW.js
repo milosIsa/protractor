@@ -17,7 +17,7 @@ describe('Survey creation', function() {
     //loginFunc.waitELe(loginBtn)
     element(by.css('.new-login__left.flexbox'));
 
-    //  Now make sure that the new window is popping up and we are navigating   correctly to it
+    //  Now make sure that the new window is popping up and we are navigating correctly to it
         loginPage.loginGPTW('charliedev@greatplacetowork.com', 'Ravine452!');
   //   loginFunc.elements.loginButton().click().then(function() {
   //     browser.getAllWindowHandles().then(function(handles) {
